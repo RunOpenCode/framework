@@ -28,100 +28,100 @@ class AbstractJoinpointTest extends \PHPUnit_Framework_TestCase
 
     public function sortingTestSource()
     {
-        return array(
+        return [
             // #0
-            array(
-                array(
+            [
+                [
                     $this->getMock(AdviceAfter::class),
                     $this->getMock(AdviceBefore::class)
-                ),
-                array(
+                ],
+                [
                     AdviceBefore::class,
                     AdviceAfter::class
-                )
-            ),
+                ]
+            ],
             // #1
-            array(
-                array(
+            [
+                [
                     $this->getMock(AdviceAfter::class),
                     $this->getMock(AdviceAround::class)
-                ),
-                array(
+                ],
+                [
                     AdviceAfter::class,
                     AdviceAround::class
-                )
-            ),
+                ]
+            ],
             // #2
-            array(
-                array(
+            [
+                [
                     $this->getMock(AdviceBefore::class),
                     $this->getMock(AdviceAfter::class)
-                ),
-                array(
+                ],
+                [
                     AdviceBefore::class,
                     AdviceAfter::class
-                )
-            ),
+                ]
+            ],
             // #3
-            array(
-                array(
+            [
+                [
                     $this->getMock(AdviceBefore::class),
                     $this->getMock(AdviceAround::class)
-                ),
-                array(
+                ],
+                [
                     AdviceBefore::class,
                     AdviceAround::class
-                )
-            ),
+                ]
+            ],
             // #4
-            array(
-                array(
+            [
+                [
                     $this->getMock(AdviceAround::class),
                     $this->getMock(AdviceAfter::class)
-                ),
-                array(
+                ],
+                [
                     AdviceAfter::class,
                     AdviceAround::class
-                )
-            ),
+                ]
+            ],
             // #5
-            array(
-                array(
+            [
+                [
                     $this->getMock(AdviceAround::class),
                     $this->getMock(AdviceBefore::class)
-                ),
-                array(
+                ],
+                [
                     AdviceBefore::class,
                     AdviceAround::class
-                )
-            ),
+                ]
+            ],
             // #6
-            array(
-                array(
+            [
+                [
                     $this->getMock(AdviceBefore::class),
                     $this->getMock(AdviceAround::class),
                     $this->getMock(AdviceBefore::class),
                     $this->getMock(AdviceAfter::class),
-                ),
-                array(
+                ],
+                [
                     AdviceBefore::class,
                     AdviceBefore::class,
                     AdviceAfter::class,
                     AdviceAround::class,
-                )
-            ),
+                ]
+            ],
             // #7
-            array(
-                array(
+            [
+                [
                     $forth = $this->getOrderedAdvice(4, 'ForthAdvice'),
                     $first = $this->getOrderedAdvice(1, 'FirstAdvice')
-                ),
-                array(
+                ],
+                [
                     get_class($first),
                     get_class($forth),
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**
