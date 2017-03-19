@@ -32,8 +32,8 @@ class AbstractJoinpointTest extends \PHPUnit_Framework_TestCase
             // #0
             [
                 [
-                    $this->getMock(AdviceAfter::class),
-                    $this->getMock(AdviceBefore::class)
+                    $this->createMock(AdviceAfter::class),
+                    $this->createMock(AdviceBefore::class)
                 ],
                 [
                     AdviceBefore::class,
@@ -43,8 +43,8 @@ class AbstractJoinpointTest extends \PHPUnit_Framework_TestCase
             // #1
             [
                 [
-                    $this->getMock(AdviceAfter::class),
-                    $this->getMock(AdviceAround::class)
+                    $this->createMock(AdviceAfter::class),
+                    $this->createMock(AdviceAround::class)
                 ],
                 [
                     AdviceAfter::class,
@@ -54,8 +54,8 @@ class AbstractJoinpointTest extends \PHPUnit_Framework_TestCase
             // #2
             [
                 [
-                    $this->getMock(AdviceBefore::class),
-                    $this->getMock(AdviceAfter::class)
+                    $this->createMock(AdviceBefore::class),
+                    $this->createMock(AdviceAfter::class)
                 ],
                 [
                     AdviceBefore::class,
@@ -65,8 +65,8 @@ class AbstractJoinpointTest extends \PHPUnit_Framework_TestCase
             // #3
             [
                 [
-                    $this->getMock(AdviceBefore::class),
-                    $this->getMock(AdviceAround::class)
+                    $this->createMock(AdviceBefore::class),
+                    $this->createMock(AdviceAround::class)
                 ],
                 [
                     AdviceBefore::class,
@@ -76,8 +76,8 @@ class AbstractJoinpointTest extends \PHPUnit_Framework_TestCase
             // #4
             [
                 [
-                    $this->getMock(AdviceAround::class),
-                    $this->getMock(AdviceAfter::class)
+                    $this->createMock(AdviceAround::class),
+                    $this->createMock(AdviceAfter::class)
                 ],
                 [
                     AdviceAfter::class,
@@ -87,8 +87,8 @@ class AbstractJoinpointTest extends \PHPUnit_Framework_TestCase
             // #5
             [
                 [
-                    $this->getMock(AdviceAround::class),
-                    $this->getMock(AdviceBefore::class)
+                    $this->createMock(AdviceAround::class),
+                    $this->createMock(AdviceBefore::class)
                 ],
                 [
                     AdviceBefore::class,
@@ -98,10 +98,10 @@ class AbstractJoinpointTest extends \PHPUnit_Framework_TestCase
             // #6
             [
                 [
-                    $this->getMock(AdviceBefore::class),
-                    $this->getMock(AdviceAround::class),
-                    $this->getMock(AdviceBefore::class),
-                    $this->getMock(AdviceAfter::class),
+                    $this->createMock(AdviceBefore::class),
+                    $this->createMock(AdviceAround::class),
+                    $this->createMock(AdviceBefore::class),
+                    $this->createMock(AdviceAfter::class),
                 ],
                 [
                     AdviceBefore::class,

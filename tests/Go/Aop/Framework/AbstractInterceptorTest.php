@@ -43,7 +43,7 @@ abstract class AbstractInterceptorTest extends TestCase
      */
     protected function getInvocation(&$sequenceRecorder, $throwException = false)
     {
-        $invocation = $this->getMock(static::INVOCATION_CLASS);
+        $invocation = $this->createMock(static::INVOCATION_CLASS);
         $invocation
             ->expects($this->any())
             ->method('proceed')

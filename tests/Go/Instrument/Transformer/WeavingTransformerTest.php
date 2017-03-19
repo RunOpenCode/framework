@@ -28,13 +28,21 @@ class WeavingTransformerTest extends \PHPUnit_Framework_TestCase
     protected $adviceMatcher = null;
 
     /**
+     * @var null|CachePathManager|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $cachePathManager = null;
+
+    /**
      * {@inheritDoc}
      */
     public function setUp()
     {
         $container = $this->getContainerMock();
-        $reader    = $this->getMock(Reader::class);
-        $loader    = $this->getMock(AspectLoader::class, [], [$container, $reader]);
+        $reader    = $this->createMock(Reader::class);
+        $loader    = $this
+            ->getMockBuilder(AspectLoader::class)
+            ->setConstructorArgs([$container, $reader])
+            ->getMock();
 
         $this->adviceMatcher = $this->getAdviceMatcherMock();
         $this->kernel        = $this->getKernelMock(
@@ -47,11 +55,15 @@ class WeavingTransformerTest extends \PHPUnit_Framework_TestCase
             ],
             $container
         );
+        $this->cachePathManager = $this
+            ->getMockBuilder(CachePathManager::class)
+            ->setConstructorArgs([$this->kernel])
+            ->getMock();
 
         $this->transformer = new WeavingTransformer(
             $this->kernel,
             $this->adviceMatcher,
-            $this->getMock(CachePathManager::class, [], [$this->kernel]),
+            $this->cachePathManager,
             $loader
         );
     }
@@ -156,8 +168,11 @@ class WeavingTransformerTest extends \PHPUnit_Framework_TestCase
     public function testTransformerWithIncludePaths()
     {
         $container = $this->getContainerMock();
-        $reader    = $this->getMock(Reader::class);
-        $loader    = $this->getMock(AspectLoader::class, [], [$container, $reader]);
+        $reader    = $this->createMock(Reader::class);
+        $loader    = $this
+            ->getMockBuilder(AspectLoader::class)
+            ->setConstructorArgs([$container, $reader])
+            ->getMock();
 
         $this->transformer = new WeavingTransformer(
             $this->getKernelMock(
@@ -169,7 +184,7 @@ class WeavingTransformerTest extends \PHPUnit_Framework_TestCase
                 $container
             ),
             $this->adviceMatcher,
-            $this->getMock(CachePathManager::class, [], [$this->kernel]),
+            $this->cachePathManager,
             $loader
         );
         $metadata = $this->loadTest('class');
@@ -249,7 +264,7 @@ class WeavingTransformerTest extends \PHPUnit_Framework_TestCase
      */
     protected function getAdviceMatcherMock()
     {
-        $mock = $this->getMock(AdviceMatcher::class, ['getAdvicesForClass'], [], '', false);
+        $mock = $this->createPartialMock(AdviceMatcher::class, ['getAdvicesForClass']);
         $mock->expects($this->any())
             ->method('getAdvicesForClass')
             ->will(
@@ -293,11 +308,11 @@ class WeavingTransformerTest extends \PHPUnit_Framework_TestCase
     /**
      * Returns a mock for the container
      *
-     * @return AspectContainer
+     * @return AspectContainer|\PHPUnit_Framework_MockObject_MockObject
      */
     private function getContainerMock()
     {
-        $container = $this->getMock(AspectContainer::class);
+        $container = $this->createMock(AspectContainer::class);
 
         $container
             ->expects($this->any())
