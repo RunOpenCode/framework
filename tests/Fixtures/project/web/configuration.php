@@ -12,6 +12,7 @@ return array(
         'includePaths' => array(
             __DIR__ . '/../src/'
         ),
+        'features' => \Go\Aop\Features::INTERCEPT_INITIALIZATIONS,
     ),
 
     'inconsistent_weaving' => array(

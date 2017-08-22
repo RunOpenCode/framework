@@ -80,7 +80,6 @@ class ConstructorExecutionTransformer implements SourceTransformer
         if (strpos($metadata->source, 'new ') === false) {
             return;
         }
-
         $tokenStream       = token_get_all($metadata->source);
         $transformedSource = '';
         $isWaitingClass    = false;

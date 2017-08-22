@@ -41,14 +41,6 @@ final class ClassMemberNotWovenConstraint extends Constraint
         $wovenAdvisorIdentifiers = $reflectionClass->getStaticPropertyValue('__joinPoints', null);
         $target                  = $other->getTarget();
 
-        if (null === $wovenAdvisorIdentifiers) { // there are no advisor identifiers
-            return true;
-        }
-
-        if (!isset($wovenAdvisorIdentifiers[$target])) {
-            return true;
-        }
-
         if (!isset($wovenAdvisorIdentifiers[$target][$other->getSubject()])) {
             return true;
         }

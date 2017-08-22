@@ -24,4 +24,9 @@ class Main extends AbstractBar
     {
         echo 'I did something else';
     }
+
+    public function create()
+    {
+        return new Main();
+    }
 }
