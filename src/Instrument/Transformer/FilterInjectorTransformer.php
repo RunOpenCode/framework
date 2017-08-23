@@ -123,7 +123,7 @@ class FilterInjectorTransformer implements SourceTransformer
     public function transform(StreamMetaData $metadata)
     {
         if ((strpos($metadata->source, 'include') === false) && (strpos($metadata->source, 'require') === false)) {
-            return;
+            return false;
         }
         static $lookFor = array(
             T_INCLUDE      => true,
@@ -176,6 +176,9 @@ class FilterInjectorTransformer implements SourceTransformer
                 $transformedSource .= ' \\' . __CLASS__ . '::rewrite(';
             }
         }
+
         $metadata->source = $transformedSource;
+
+        return true;
     }
 }

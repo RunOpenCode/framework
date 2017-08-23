@@ -10,6 +10,7 @@
 
 namespace Go\Instrument\Transformer;
 
+use Go\Aop\Features;
 use Go\Core\AspectKernel;
 use Go\Instrument\ClassLoading\CachePathManager;
 
@@ -120,14 +121,22 @@ class CachingTransformer extends BaseSourceTransformer
             $delayedTransformers = $this->transformers;
             $this->transformers  = $delayedTransformers();
         }
+
+        $interceptInitializations = $this->kernel->hasFeature(Features::INTERCEPT_INITIALIZATIONS);
+        $interceptIncludes        = $this->kernel->hasFeature(Features::INTERCEPT_INCLUDES);
+        $optimize                 = !$interceptInitializations && !$interceptIncludes;
+        $transformed              = false;
+
         foreach ($this->transformers as $transformer) {
             $isTransformed = $transformer->transform($metadata);
             // transformer reported about termination, next transformers will be skipped
-            if ($isTransformed === false) {
+            if (true === $optimize && false === $isTransformed) {
                 return false;
             }
+
+            $transformed = $transformed || $isTransformed;
         }
 
-        return true;
+        return $transformed;
     }
 }

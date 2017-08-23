@@ -31,7 +31,6 @@ use ReflectionClass;
  */
 class WeavingTransformer extends BaseSourceTransformer
 {
-
     /**
      * @var AdviceMatcher
      */

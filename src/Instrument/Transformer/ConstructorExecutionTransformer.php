@@ -73,19 +73,21 @@ class ConstructorExecutionTransformer implements SourceTransformer
      *
      * @param StreamMetaData $metadata Metadata for source
      *
-     * @return void|bool Return false if transformation should be stopped
+     * @return bool Return false if transformation should be stopped
      */
     public function transform(StreamMetaData $metadata = null)
     {
         if (strpos($metadata->source, 'new ') === false) {
-            return;
+            return false;
         }
+
         $tokenStream       = token_get_all($metadata->source);
         $transformedSource = '';
         $isWaitingClass    = false;
         $isWaitingEnd      = false;
         $isClassName       = true;
         $classNamePosition = 0;
+
         foreach ($tokenStream as $index=>$token) {
             list ($token, $tokenValue) = (array) $token + array(1 => $token);
             if ($isWaitingClass && $token !== T_WHITESPACE && $token !== T_COMMENT) {
@@ -116,7 +118,10 @@ class ConstructorExecutionTransformer implements SourceTransformer
                 $isWaitingEnd = false;
             }
         }
+
         $metadata->source = $transformedSource;
+
+        return true;
     }
 
     /**
